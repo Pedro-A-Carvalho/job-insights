@@ -47,4 +47,31 @@ class ProcessSalaries(ProcessJobs):
     def filter_by_salary_range(
         self, jobs: List[dict], salary: Union[str, int]
     ) -> List[Dict]:
-        pass
+        jobs_with_salaries = [
+            job
+            for job in jobs
+            if job["min_salary"] != ""
+            and job["max_salary"] != ""
+            and int(job["max_salary"]) >= int(job["min_salary"])
+        ]
+        try:
+            if isinstance(salary, int) or isinstance(salary, str):
+                filtered_jobs = [
+                    job
+                    for job in jobs_with_salaries
+                    if self.matches_salary_range(job, int(salary))
+                ]
+                # print("*" * 10)
+                # print("*" * 10)
+                # print(jobs)
+                # print(salary)
+                # print(filtered_jobs)
+                # print("*" * 10)
+                # print(jobs_with_salaries)
+                # print("*" * 10)
+                # print("*" * 10)
+                return filtered_jobs
+            return []
+        except ValueError:
+            return []
+        # pass
