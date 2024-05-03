@@ -15,7 +15,12 @@ class ProcessSalaries(ProcessJobs):
         return max(max_salaries)
 
     def get_min_salary(self) -> int:
-        pass
+        max_salaries = [
+            int(job["min_salary"])
+            for job in self.jobs_list
+            if job["min_salary"] != "" and job["min_salary"].isdigit()
+        ]
+        return min(max_salaries)
 
     def matches_salary_range(self, job: Dict, salary: Union[int, str]) -> bool:
         pass
